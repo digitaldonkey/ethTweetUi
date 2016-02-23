@@ -1,0 +1,16 @@
+<div *ngIf="ethStatus">
+  <div class="eth-status eth-status--active">
+    <span style="color: green;">✓</span> Connected to eth.
+    <ul class="sth-status--meta">
+        <li>network version: {{web3.version.network}}</li>
+        <li>ethereum version: {{web3.version.ethereum}}</li>
+    </ul>
+  </div>
+
+  <eth-tweet>Loading EthTweet...</eth-tweet>
+
+</div>
+
+<div class="eth-status eth-status--inactive" *ngIf="!ethStatus">
+  <span style="color: red;">✘</span> Not comnnected to eth.
+</div>

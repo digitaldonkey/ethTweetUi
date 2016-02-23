@@ -1,0 +1,6 @@
+{
+  "generator-mcfly-ng2": {
+    "appname": "ether-tweet-ui",
+    "clientFolder": "client"
+  }
+}

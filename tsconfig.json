@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "target": "ES5",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "removeComments": true,
+        "noEmitHelpers": false,
+        "noImplicitAny": false
+    },
+    "compileOnSave": false,
+    "buildOnSave": false,
+    "exclude": [
+        "node_modules"
+    ],
+    "filesGlob": [
+        "client/**/*.ts",
+        "test/**/*.ts",
+        "typings/tsd.d.ts",
+        "!./node_modules/**/*.ts"
+    ]
+}

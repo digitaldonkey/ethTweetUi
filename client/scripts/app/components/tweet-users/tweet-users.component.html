@@ -1,0 +1,10 @@
+<div class="tweet-users">
+    <form>
+        <select (change)="userWasSelected(currentUser.value)" #currentUser>
+            <option value="" selected="selected">Select a user</option>
+            <option *ngFor="#u of users" value="{{u.address}}">{{u.name}}</option>
+        </select>
+        <p>currentUser.value: {{currentUser.value}}</p>
+        <tweet-list *ngIf="currentUser.value" [user]="currentUser.value" onUserSelected="alert(currentUser.value)"></tweet-list>
+    </form>
+</div>
