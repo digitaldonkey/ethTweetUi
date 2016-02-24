@@ -1,6 +1,6 @@
 <div class="tweet-users">
     <form>
-        <select (change)="userWasSelected(currentUser.value)" #currentUser>
+        <select class="tweet-users--select ui dropdown" (change)="userWasSelected(currentUser.value)" #currentUser>
             <option value="" selected="selected">Select a user</option>
             <option *ngFor="#u of users" value="{{u.address}}">{{u.name}}</option>
         </select>

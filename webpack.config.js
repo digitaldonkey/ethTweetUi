@@ -120,6 +120,18 @@ module.exports = {
                 loader: 'css-loader!postcss-loader',
                 include: [new RegExp(clientFolder)]
             },
+
+            // Semantic-ui
+            // Had to fix font loading in semantic-ui in order to work with webpack. Added:
+            // @fontPath  : '../assets/fonts';
+            // to
+            // semantic/src/site/globals/site.variables
+
+            // Semantic with LESS File loader:
+            {
+                test: /\.less$/,
+                loader: "style!css!less?strictMath&noIeCompat"
+            },
             // Support for CSS as injected style in node_module folder
             {
                 test: /\.css$/,
@@ -244,6 +256,12 @@ module.exports = {
         }] : [])),
         new PostCompilePlugin({
             filename: path.join(distFolder, 'bundle.js')
+        }),
+        new webpack.ProvidePlugin({
+            'jQuery': 'jquery'
+        }),
+        new webpack.ProvidePlugin({
+            'Web3': 'web3'
         })
     ].concat(pluginsProd)
 };

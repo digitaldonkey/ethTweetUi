@@ -1,16 +1,30 @@
-<div *ngIf="ethStatus">
-  <div class="eth-status eth-status--active">
-    <span style="color: green;">✓</span> Connected to eth.
-    <ul class="sth-status--meta">
-        <li>network version: {{web3.version.network}}</li>
-        <li>ethereum version: {{web3.version.ethereum}}</li>
-    </ul>
-  </div>
+<div class="ui menu">
 
-  <eth-tweet>Loading EthTweet...</eth-tweet>
+    <div class="item">
+        <h1>EthTweet-UI</h1>
+    </div>
 
+    <div class="right item">
+        <div class="ui icon input">
+
+            <div *ngIf="ethStatus">
+                <div class="eth-status eth-status--active visible content">
+                    <span style="color: green;">✓</span> Connected to eth.
+                    <p class="sth-status--meta">
+                        network version: {{web3.version.network}}<br />
+                        ethereum version: {{web3.version.ethereum}}
+                    </p>
+                </div>
+            </div>
+
+            <div class="eth-status eth-status--inactive" *ngIf="!ethStatus">
+                <span style="color: red;">✘</span> Not comnnected to eth.
+            </div>
+
+        </div>
+    </div>
 </div>
 
-<div class="eth-status eth-status--inactive" *ngIf="!ethStatus">
-  <span style="color: red;">✘</span> Not comnnected to eth.
+<div class="ui container" *ngIf="ethStatus">
+    <eth-tweet>Loading EthTweet...</eth-tweet>
 </div>

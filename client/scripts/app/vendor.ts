@@ -15,4 +15,7 @@ import 'angular2/http';
 
 // Other vendors for example jQuery or Lodash
 
-// css
+// semantic-ui
+import '../../../semantic/dist/semantic.min.js';
+require('!style!css!less!../../../semantic/src/semantic.less');
+

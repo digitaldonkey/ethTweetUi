@@ -7,7 +7,7 @@ To learn about EthTweet see: https://github.com/yep/eth-tweet
 Use the following in a web browser in order to use the current Version of the client.
 
 ``
- <this path>/dist/index.html
+ <this path>/dist/app/dev/index.html
 ``
 
 
