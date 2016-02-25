@@ -17,7 +17,9 @@ reports/
 
 # Build
 build/
-dist/
+# Include standalone version in dist folder.
+#dist/
+semantic/dist/
 .tmp
 .cache/
 
