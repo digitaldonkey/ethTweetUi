@@ -1,5 +1,5 @@
-<h2>Tweets (if any)</h2>
-<article class="eth-tweet" style="margin: 1em 0; background: lightblue" *ngFor="#t of tweets">
+<h2 class="tweet-list-heading">{{userName}} tweeted in ethTweet {{numberOfTweets}} times</h2>
+<article class="eth-tweet ui raised segment" *ngFor="#t of tweets">
     <header>
         <strong class="ethTweet--user">{{t.user}}: </strong>
         <span class="eth-tweet--date">

@@ -1,23 +1,60 @@
 /* beautify ignore:start */
 import {Injectable} from 'angular2/core';
 import * as Web3 from 'web3';
-
+import {Subject} from 'rxjs/Subject';
+import {BehaviorSubject} from 'rxjs/Rx';
 /* beautify ignore:end */
+
+declare module 'EthTweet' {
+  export default class EthTweet {
+    ethTweet(): EthTweet;
+  }
+}
+
+/**
+ * @EthTweetUser: A component providing a `EthTweetUser` object
+ */
+export class EthTweetUser {
+  constructor(
+    public name: string,
+    public address: string ) {
+  }
+}
 
 @Injectable()
 export class EthTweet {
 
+  name: string;
+  ethTweet: Subject<EthTweet> = new BehaviorSubject<EthTweet>(null);
+
+  // Constants.
   tweetRegistryAddress: string;
   web3HttpServer: string;
-  web3: Web3;
+
+  // Variables.
+  web3: any;
+  // Here we will the tweetRegistry.
+  etr: any;
+  eth: any;
+  ethStatus: boolean;
+  users: EthTweetUser[];
 
   constructor() {
+
+    // Connection to Ethereum server.
+    this.web3HttpServer = 'http://localhost:8545';
+
     // The Eth tweet registry is a pre defined ethereum address.
     // See: https://github.com/yep/eth-tweet#register-account-name
     this.tweetRegistryAddress = '0xe0f278b72097e563b09d7dc94c6f75aff5e83298';
-    this.web3HttpServer = 'http://localhost:8545';
-    this.web3 = new Web3(new Web3.providers.HttpProvider(this.web3HttpServer));
 
+    // Init Web3 Api.
+    this.web3 = new Web3(new Web3.providers.HttpProvider(this.web3HttpServer));
+    this.eth = this.web3.eth;
+    this.ethStatus = this.web3.isConnected();
+
+    // tweetRegistry.
+    this.etr = this.tweetRegistry();
   }
 
   /**
@@ -29,7 +66,7 @@ export class EthTweet {
    *   tweetRegistry
    */
   tweetRegistry () {
-    return this.web3.eth.contract(
+    return this.eth.contract(
       [
         {
           'constant': false,
@@ -110,7 +147,7 @@ export class EthTweet {
   /**
    * tweetAccount
    *
-   * @param atring address
+   * @param address String
    *   Ethereum address of the tweet account.
    *
    * See: https://github.com/yep/eth-tweet#read-tweets
@@ -119,7 +156,7 @@ export class EthTweet {
    *   tweetAccount of the given user
    */
   tweetAccount (address) {
-    return this.web3.eth.contract(
+    return this.eth.contract(
       [
         {
           'constant': true,
@@ -183,4 +220,61 @@ export class EthTweet {
         }
       ]).at(address);
   }
+
+  /**
+   * getAllUsers.
+   *
+   */
+  getAllUsers() {
+    if (typeof this.users === 'undefined') {
+      this.loadAllUsers();
+    }
+    return this.users;
+  }
+
+  /**
+   * Returns User name for a given address.
+   * This is about 1000 times faster compared to etr.getNameOfAddress(address).
+   */
+  getUserNameByAddress (address: string) {
+
+    if (typeof this.users === 'undefined') {
+      this.loadAllUsers();
+    }
+    for (let i = 0; i < this.users.length; i++) {
+      if (this.users[i].address === address) {
+        return this.users[i].name;
+      }
+    }
+    throw 'Could not find User with address: ' + address;
+  }
+
+  /**
+   * Load all users to this.users[]
+   *
+   * Using
+   *
+   *    etr.getNameOfAddress(address)
+   *
+   * to initially load the users.
+   * Limits in performance: 100 users names took about 1sec.
+   *
+   * If User Array is filled getUserNameByAddress() is 1000 times faster.
+   */
+  private loadAllUsers() {
+
+    this.users = [];
+
+    // Number of Accounts of current user (coinbase)?!
+    let numberOfAccounts = this.etr.getNumberOfAccounts().toNumber();
+
+    let i = 0;
+    while (i < numberOfAccounts) {
+      let address = this.etr.getAddressOfId(i);
+      this.users[i] = new EthTweetUser(this.etr.getNameOfAddress(address), address);
+      i++;
+    }
+    return this.users;
+  }
+
 }

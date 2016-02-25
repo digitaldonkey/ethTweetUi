@@ -1,10 +1,17 @@
-<div class="tweet-users">
+<div class="tweet-users clear">
     <form>
-        <select class="tweet-users--select ui dropdown" (change)="userWasSelected(currentUser.value)" #currentUser>
-            <option value="" selected="selected">Select a user</option>
-            <option *ngFor="#u of users" value="{{u.address}}">{{u.name}}</option>
-        </select>
-        <p>currentUser.value: {{currentUser.value}}</p>
-        <tweet-list *ngIf="currentUser.value" [user]="currentUser.value" onUserSelected="alert(currentUser.value)"></tweet-list>
+        <div class="ui two column middle aligned relaxed fitted stackable grid">
+            <div class="column">
+                <select class="tweet-users--select ui dropdown" (change)="userWasSelected(currentUser.value)" #currentUser>
+                    <option value="" selected="selected">Select a user</option>
+                    <option *ngFor="#u of users" value="{{u.address}}">{{u.name}}</option>
+                </select>
+            </div>
+            <div class="column" *ngIf="currentUser.value">
+                Username: {{user.name}}<br/>
+                Ethereum address: {{user.address}}
+            </div>
+        </div>
     </form>
+    <tweet-list *ngIf="currentUser.value" [user]="currentUser.value" onUserSelected="alert(currentUser.value)"></tweet-list>
 </div>

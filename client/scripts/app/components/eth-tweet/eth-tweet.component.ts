@@ -1,6 +1,6 @@
 /* beautify ignore:start */
-import {Component, Inject} from 'angular2/core';
-import {Web3Service} from '../../services/web-3-service/web-3-service.service';
+import {Component} from 'angular2/core';
+import {EthTweet} from '../../services/eth-tweet/eth-tweet.service';
 import {TweetUsersComponent} from '../tweet-users/tweet-users.component';
 
 /* beautify ignore:end */
@@ -15,10 +15,8 @@ import {TweetUsersComponent} from '../tweet-users/tweet-users.component';
 
 export class EthTweetComponent {
   ethStatus: boolean;
-  web3: Object;
 
-  constructor(web3api:Web3Service) {
-    this.web3 = web3api.getWeb3();
-    this.ethStatus = this.web3.isConnected();
+  constructor(ethTweet: EthTweet) {
+    this.ethStatus = ethTweet.ethStatus;
   }
 }

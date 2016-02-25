@@ -1,18 +1,16 @@
-<div class="ui menu">
+<div class="ui menu borderless">
+    <div class="ui container">
+        <div class="item">
+            <h1>EthTweet-UI</h1>
+        </div>
 
-    <div class="item">
-        <h1>EthTweet-UI</h1>
-    </div>
-
-    <div class="right item">
-        <div class="ui icon input">
-
+        <div class="right item">
             <div *ngIf="ethStatus">
-                <div class="eth-status eth-status--active visible content">
+                <div class="eth-status eth-status--active">
                     <span style="color: green;">✓</span> Connected to eth.
                     <p class="sth-status--meta">
-                        network version: {{web3.version.network}}<br />
-                        ethereum version: {{web3.version.ethereum}}
+                        network version: {{version.network}}<br />
+                        ethereum version: {{version.ethereum}}
                     </p>
                 </div>
             </div>

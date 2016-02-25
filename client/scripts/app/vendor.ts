@@ -12,10 +12,8 @@ import 'angular2/core';
 import 'angular2/router';
 import 'angular2/http';
 
-
-// Other vendors for example jQuery or Lodash
+// Other vendors
 
 // semantic-ui
 import '../../../semantic/dist/semantic.min.js';
 require('!style!css!less!../../../semantic/src/semantic.less');
-
