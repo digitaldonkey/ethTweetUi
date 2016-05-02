@@ -10,6 +10,12 @@ Use the following in a web browser in order to use the current Version of the cl
  <this path>/dist/app/dev/index.html
 ``
 
+Start up geth using RPC and allow access from the domain running ethTweetUI:
+
+``
+geth --rpc --rpccorsdomain="*"
+``
+
 
 ## Development 
 This angular 2 based webapp using webpack and the web3 API.
